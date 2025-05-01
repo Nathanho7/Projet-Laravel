@@ -296,5 +296,5 @@ DB_CONNECTION=mysql
 # DB_PASSWORD=
 ```
 - Base de données via pypmyadmin
-![Capture d'écran](images/phymyadmin.jpg)
+![Capture d'écran](phymyadmin.jpg)
 
