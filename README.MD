@@ -296,4 +296,5 @@ DB_CONNECTION=mysql
 # DB_PASSWORD=
 ```
 - Base de données via pypmyadmin
-![Capture d'écran](C:\Users\gusta\OneDrive - Efrei\Images\Captures d’écran)
+![Capture d'écran](images/phymyadmin.jpg)
+
