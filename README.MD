@@ -298,3 +298,187 @@ DB_CONNECTION=mysql
 - Base de données via pypmyadmin
 ![Capture d'écran](phymyadmin.png)
 
+#### 4. Générez la clé d'application :
+```sh
+C:\Users\gusta\laravel-test>php artisan key:generate
+
+   INFO  Application key set successfully.
+```
+
+## 2. Authentification avec Laravel Breeze
+
+
+1. Installez Laravel Breeze :
+```sh
+C:\Users\gusta\laravel-test>composer require laravel/breeze --dev
+./composer.json has been updated
+Running composer update laravel/breeze
+Loading composer repositories with package information
+Updating dependencies
+Lock file operations: 1 install, 0 updates, 0 removals
+  - Locking laravel/breeze (v2.3.6)
+Writing lock file
+Installing dependencies from lock file (including require-dev)
+Package operations: 1 install, 0 updates, 0 removals
+  - Installing laravel/breeze (v2.3.6): Extracting archive
+Generating optimized autoload files
+> Illuminate\Foundation\ComposerScripts::postAutoloadDump
+> @php artisan package:discover --ansi
+
+   INFO  Discovering packages.
+
+  laravel/breeze ................................................................................ DONE
+  laravel/pail .................................................................................. DONE
+  laravel/sail .................................................................................. DONE
+  laravel/tinker ................................................................................ DONE
+  nesbot/carbon ................................................................................. DONE
+  nunomaduro/collision .......................................................................... DONE
+  nunomaduro/termwind ........................................................................... DONE
+
+80 packages you are using are looking for funding.
+Use the `composer fund` command to find out more!
+> @php artisan vendor:publish --tag=laravel-assets --ansi --force
+
+   INFO  No publishable resources for tag [laravel-assets].
+
+No security vulnerability advisories found.
+Using version ^2.3 for laravel/breeze
+```
+
+2. Installez les fichiers Blade avec l'authentification :
+```sh
+C:\Users\gusta\laravel-test>php artisan breeze:install blade
+
+   INFO  Installing and building Node dependencies.
+
+
+added 198 packages, and audited 199 packages in 14s
+
+48 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> build
+> vite build
+
+    vite v6.3.4 building for production...
+    transforming...
+    ✓ 54 modules transformed.
+    rendering chunks...
+computing gzip size...
+public/build/manifest.json             0.27 kB │ gzip:  0.15 kB
+public/build/assets/app-B4Qi55n8.css  34.42 kB │ gzip:  6.59 kB
+public/build/assets/app-Bf4POITK.js   79.80 kB │ gzip: 29.76 kB
+✓ built in 1.30s
+
+
+   INFO  Breeze scaffolding installed successfully.
+``` 
+
+3. Compilez les assets :
+```sh
+C:\Users\gusta\laravel-test>npm install && npm run dev
+
+up to date, audited 199 packages in 1s
+
+48 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+> dev
+> vite
+
+
+  VITE v6.3.4  ready in 278 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+
+
+  LARAVEL v12.11.1  plugin v1.2.0
+
+  ➜  APP_URL: http://localhost
+20:44:34 [vite] full reload resources\views\layouts\app.blade.php
+20:44:36 [vite] full reload resources\views\layouts\app.blade.php (x2)
+20:44:43 [vite] full reload resources\views\livewire\booking-manager.blade.php
+```
+- image de tztatata
+
+
+4. Exécutez les migrations :
+```sh
+C:\Users\gusta\laravel-test>php artisan migrate
+
+   INFO  Preparing database.
+
+  Creating migration table .............................................................................. 21.15ms DONE
+
+   INFO  Running migrations.
+
+  0001_01_01_000000_create_users_table .................................................................. 95.51ms DONE
+  0001_01_01_000001_create_cache_table .................................................................. 16.72ms DONE
+  0001_01_01_000002_create_jobs_table ................................................................... 93.16ms DONE
+
+
+C:\Users\gusta\laravel-test>
+C:\Users\gusta\laravel-test>php artisan make:migration create_properties_table
+
+   INFO  Migration [C:\Users\gusta\laravel-test\database\migrations/2025_05_01_155633_create_properties_table.php] created successfully.
+``` 
+
+## 3. Structure du Projet
+
+### **3.1 Modèles et Base de Données**
+
+Créez les tables suivantes :
+
+* **Properties** : représente les biens immobiliers
+* **Bookings** : représente les réservations d'un bien
+
+- Properties :
+```sh 
+C:\Users\gusta\laravel-test>php artisan make:migration create_properties_table
+
+   INFO  Migration [C:\Users\gusta\laravel-test\database\migrations/2025_05_01_155633_create_properties_table.php] created successfully.
+```
+
+ #### **Exemple de migration pour** `bookings` :
+```sh
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('properties', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->decimal('price_per_night', 8, 2);
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('properties');
+    }
+};
+```
+4. Interface Utilisateur avec Blade et TailwindCSS
+```sh
+
+
